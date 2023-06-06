@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Banco</title>
+</head>
+<body>
+    <script>
+        function inicio() {
+            var nome = prompt("Digite seu nome:");
+            var senha = prompt("Digite a senha:");
+
+            if (senha === "3589") {
+                alert("Olá " + nome + ", é um prazer ter você por aqui!");
+
+                var saldo = 1000;  // Exemplo de saldo inicial
+                var extrato = [];  // Lista para armazenar as transações
+
+                while (true) {
+                    var opcao = prompt("Menu Principal:\n1. Saldo\n2. Extrato\n3. Saque\n4. Depósito\n5. Transferência\n6. Sair");
+
+                    switch (opcao) {
+                        case "1":
+                            alert("Seu saldo é: R$ " + saldo);
+                            break;
+                        case "2":
+                            var extratoTexto = "Extrato:\n";
+                            for (var i = 0; i < extrato.length; i++) {
+                                extratoTexto += extrato[i] + "\n";
+                            }
+                            alert(extratoTexto);
+                            break;
+                        case "3":
+                            var valorSaque = parseFloat(prompt("Digite o valor a ser sacado:"));
+                            if (valorSaque <= 0) {
+                                alert("Operação não autorizada");
+                            } else if (valorSaque > saldo) {
+                                alert("Saldo insuficiente");
+                            } else {
+                                saldo -= valorSaque;
+                                extrato.push("Saque: R$ " + valorSaque);
+                                alert("Saque realizado com sucesso");
+                            }
+                            break;
+                        case "4":
+                            var valorDeposito = parseFloat(prompt("Digite o valor a ser depositado:"));
+                            if (valorDeposito <= 0) {
+                                alert("Operação não autorizada");
+                            } else {
+                                saldo += valorDeposito;
+                                extrato.push("Depósito: R$ " + valorDeposito);
+                                alert("Depósito realizado com sucesso");
+                            }
+                            break;
+                        case "5":
+                            var numeroConta = prompt("Digite o número da conta:");
+                            var valorTransferencia = parseFloat(prompt("Digite o valor da transferência:"));
+                            if (valorTransferencia <= 0) {
+                                alert("Operação não autorizada");
+                            } else if (valorTransferencia > saldo) {
+                                alert("Saldo insuficiente");
+                            } else {
+                                saldo -= valorTransferencia;
+                                extrato.push("Transferência para conta " + numeroConta + ": R$ " + valorTransferencia);
+                                alert("Transferência realizada com sucesso");
+                            }
+                            break;
+                        case "6":
+                            alert(nome + ", foi um prazer ter você por aqui!");
+                            return;
+                        default:
+                            alert("Opção inválida");
+                            break;
+                    }
+                }
+            } else {
+                inicio();  // Chama a função novamente se a senha for incorreta
+            }
+        }
+        
+        inicio();  // Chama a função ao carregar a página
+    </script>
+</body>
+</html>
+
